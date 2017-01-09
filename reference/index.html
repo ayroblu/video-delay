@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Delayed video">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Delayed video">
+    <meta itemprop="name" content="Delayed video">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Delayed Video</title>
+
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+}
+video{
+  background: #555;
+  display:block;
+  position:fixed;
+  top:100px;
+  bottom:0;
+  left:0;
+  right:0;
+}
+button.startButton{
+  width: 90%;
+  margin-top: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 10px;
+  font-size: 24px;
+  background: #eee;
+  height: 80px;
+  border: none;
+}
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <video class="first" autoplay muted></video>
+      <button class="startButton">Start Video</button>
+    </div>
+
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
