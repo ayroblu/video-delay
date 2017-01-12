@@ -1,0 +1,25 @@
+.Devices-container{
+  margin-top: 20px;
+}
+.Devices{
+  box-shadow: 0 0 10px #555;
+  display: inline-block;
+}
+.Devices-heading{
+  padding: 5px;
+  background-color: #891;
+  box-shadow: 0 0 5px #555;
+  color: white;
+  font-weight: bold;
+}
+.Devices ul{
+  list-style-type: none;
+}
+.Devices ul li{
+  padding: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+.Devices-selected{
+  background-color: #eee;
+}

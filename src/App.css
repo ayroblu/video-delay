@@ -1,0 +1,84 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #b15;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 0 10px #888;
+}
+.App-header-h2 {
+  margin-top: 70px;
+  font-size: 40px;
+}
+
+.App-intro {
+  margin-top: 15px;
+}
+.App-intro p {
+  margin: 5px;
+}
+.App-start-button{
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #e70;
+  box-shadow: 0 0 5px #555;
+  color: white;
+  display: inline-block;
+  cursor: pointer;
+}
+.App-start-button:hover{
+  background-color: #f81;
+}
+.App-start-button:active{
+  background-color: #d60;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.mainPage h1{
+  padding:100px 0 10px 0;
+  color:white;
+  background:#b15;
+  box-shadow:0 0 10px #555;
+  font-weight:300;
+  margin-bottom:10px;
+}
+
+.mediaBlock{
+  display:inline-block;
+  box-shadow:0 0 10px #555;
+  margin:10px;
+  vertical-align:top;
+  overflow:hidden;
+}
+
+.mediaBlock h3{
+  padding:5px 10px;
+  color:white;
+  background:#891;
+  box-shadow: 0 0 5px #555;
+}
+
+.mediaBlock ul{
+  padding:5px 10px;
+}
+
+.videoCover{
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  background:#888;
+  opacity:0.8;
+  display:none;
+}
