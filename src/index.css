@@ -8,7 +8,9 @@
 }
 *:focus{
   outline: none;
-  box-shadow:0 0 6px #999;
+}
+input{
+  text-align:left;
 }
 
 body {

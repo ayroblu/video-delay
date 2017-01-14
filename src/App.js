@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 import VideoRecorder from './VideoRecorder'
 import Devices from './Devices'
+import TextField from 'material-ui/TextField'
 
 class App extends Component {
   state = {
     showVideoRecorder: false
   , devices: {}
   , selectedDevices: []
+  , delay: 8
   }
   _setVideo = show=>{
     if (show === true && this.state.selectedDevices.length === 0) return
@@ -19,7 +21,11 @@ class App extends Component {
   _setSelectedDevices = selectedDevices=>{
     this.setState({...this.state, selectedDevices})
   }
+  _setDelay = (e, delay)=>{
+    this.setState({...this.state, delay})
+  }
   render() {
+    this.delayErrorText = !isNaN(this.state.delay) && this.state.delay > 0 ? null : 'This must be a number greater than 0'
     return (
       <div className="App">
         <div className="App-header">
@@ -35,17 +41,26 @@ class App extends Component {
           setSelectedDevices={this._setSelectedDevices}
           selectedDevices={this.state.selectedDevices}
         />
+        <div>
+          <TextField
+            hintText="Delay for video"
+            errorText={this.delayErrorText}
+            floatingLabelText="Delay"
+            value={this.state.delay}
+            onChange={this._setDelay}
+          />
+        </div>
         <div className="App-start-button" onClick={()=>this._setVideo(true)}>Start</div>
         <VideoRecorder 
           visible={this.state.showVideoRecorder}
-          delay={8000}
+          delay={this.state.delay*1000}
           setVideo={this._setVideo}
           devices={this.state.devices}
           selectedDevices={this.state.selectedDevices}
         />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

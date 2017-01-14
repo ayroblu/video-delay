@@ -45,7 +45,8 @@ export default class VideoRecorder extends Component {
   }
   _play(stream, index){
     this._recordings[index] = []
-    this._backupRecorders[index] = this._getMediaRecorder(stream, this._recordings[index])
+    // recordings use a lot of CPU...
+    //this._backupRecorders[index] = this._getMediaRecorder(stream, this._recordings[index])
     this._runRecursiveRecorder(stream, index)
   }
   _runRecursiveRecorder(stream, index){
@@ -66,9 +67,9 @@ export default class VideoRecorder extends Component {
   }
   _stop(){
     this._primaryRecorders.map(r=>r.stop())
-    this._backupRecorders.map(r=>r.stop())
+    //this._backupRecorders.map(r=>r.stop())
     this._primaryRecorders = []
-    this._backupRecorders = []
+    //this._backupRecorders = []
     this._timeouts.map(t=>clearTimeout(t))
     this.state.videoStreams.forEach(s=>{
       s.getVideoTracks().forEach(v=>v.stop())
@@ -78,9 +79,9 @@ export default class VideoRecorder extends Component {
   }
   download(){
     this._recordings.forEach((r, idx)=>{
-      const d = new Date();
-      const n = d.toISOString().slice(0,19);
-      const filename = "r_"+n+"_"+idx+".webm";
+      const d = new Date()
+      const n = d.toISOString().slice(0,19)
+      const filename = "r_"+n+"_"+idx+".webm"
 
       const blob = new Blob(r, {
         type: 'video/webm'
@@ -133,9 +134,9 @@ export default class VideoRecorder extends Component {
       , left: idx%cols * width + 'px'
       }
       const popupStyle = {
-        width: width/10 + 'px'
-      , top: height/20 + 'px'
-      , left: height/20 + 'px'
+        width: width/5 + 'px'
+      , top: parseInt(idx/cols, 10) * height + height/20 + 'px'
+      , left: idx%cols * width + height/20 + 'px'
       }
       return (
         <div key={'video-'+idx}>
@@ -151,7 +152,7 @@ export default class VideoRecorder extends Component {
           <FaClose/>
         </div>
       </div>
-    );
+    )
   }
 }
 
