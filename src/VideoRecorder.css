@@ -1,22 +1,10 @@
 .VideoRecorder{
 }
-.VideoRecorder-delayed{
-  background-color: black;
-  position: fixed;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-}
-.VideoRecorder-live{
-  background-color: black;
-  position: fixed;
-  width: 200px;
-}
 .VideoRecorder-close{
   position: fixed;
   top: 10px;
   right: 10px;
   color: white;
   cursor: pointer;
+  font-size: 2em;
 }

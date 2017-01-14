@@ -9,6 +9,7 @@ class App extends Component {
     showVideoRecorder: false
   , devices: {}
   , selectedDevices: []
+  , videoDelays: []
   , delay: 8
   }
   _setVideo = show=>{
@@ -23,6 +24,9 @@ class App extends Component {
   }
   _setDelay = (e, delay)=>{
     this.setState({...this.state, delay})
+  }
+  _setVideoDelays = videoDelays=>{
+    this.setState({...this.state, videoDelays})
   }
   render() {
     this.delayErrorText = !isNaN(this.state.delay) && this.state.delay > 0 ? null : 'This must be a number greater than 0'
@@ -57,6 +61,8 @@ class App extends Component {
           setVideo={this._setVideo}
           devices={this.state.devices}
           selectedDevices={this.state.selectedDevices}
+          setVideoDelays={this._setVideoDelays}
+          videoDelays={this.state.videoDelays}
         />
       </div>
     )

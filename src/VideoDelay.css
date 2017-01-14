@@ -1,0 +1,32 @@
+.VideoDelay-delayed{
+  background-color: black;
+  position: fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+}
+.VideoDelay-live{
+  background-color: black;
+  position: fixed;
+  width: 200px;
+}
+.VideoDelay-delay{
+  color: white;
+  opacity: 0.4;
+  font-size: 2em;
+  transform: translateX(-50%);
+  position: fixed;
+  -user-select: none;
+}
+.VideoDelay-delay-button{
+  position: fixed;
+  color: white;
+  cursor: pointer;
+  font-size: 3em;
+  transform: translate(-50%, -50%);
+}
+.VideoDelay-delay-button:hover{
+  color: #8bf;
+}
+

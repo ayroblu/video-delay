@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './VideoRecorder.css'
 import FaClose from 'react-icons/lib/fa/close'
+import VideoDelay from './VideoDelay'
 
 export default class VideoRecorder extends Component {
   static propTypes = {
@@ -9,6 +10,8 @@ export default class VideoRecorder extends Component {
   , setVideo: React.PropTypes.func.isRequired
   , devices: React.PropTypes.object.isRequired
   , selectedDevices: React.PropTypes.array.isRequired
+  , setVideoDelays: React.PropTypes.func.isRequired
+  , videoDelays: React.PropTypes.array.isRequired
   }
   constructor(props){
     super(props)
@@ -63,7 +66,7 @@ export default class VideoRecorder extends Component {
       setTimeout(()=>{
         this._runRecursiveRecorder(stream, index)
       })
-    }, this.props.delay)
+    }, this.props.delay + this.props.videoDelays[index]*100)
   }
   _stop(){
     this._primaryRecorders.map(r=>r.stop())
@@ -97,7 +100,7 @@ export default class VideoRecorder extends Component {
     })
   }
   async _run(){
-    const devices= this.props.devices
+    const devices = this.props.devices
     //const videoInput = devices.videoInputs.slice(-1)[0]
     const audioInput = devices.audioInputs.slice(-1)[0]
     const streams = await Promise.all(devices.videoInputs.filter((v,i)=>{
@@ -110,6 +113,7 @@ export default class VideoRecorder extends Component {
     , videoStreams: streams
     , videoStreamUrls: streams.map(s=>window.URL.createObjectURL(s))
     })
+    this.props.setVideoDelays(Array(streams.length).fill(this.props.delay))
   }
   componentWillReceiveProps(newProps){
     if (!this.props.visible && newProps.visible){
@@ -125,24 +129,17 @@ export default class VideoRecorder extends Component {
     const cols = Math.ceil(Math.sqrt(numVideos))
     const rows = Math.ceil(numVideos/cols)
     const videos = this.state.videoStreamUrls.map((url, idx)=>{
-      const width = document.documentElement.clientWidth/cols
-      const height = document.documentElement.clientHeight/rows
-      const videoStyle = {
-        width: width + 'px'
-      , height: height + 'px'
-      , top: parseInt(idx/cols, 10) * height + 'px'
-      , left: idx%cols * width + 'px'
-      }
-      const popupStyle = {
-        width: width/5 + 'px'
-      , top: parseInt(idx/cols, 10) * height + height/20 + 'px'
-      , left: idx%cols * width + height/20 + 'px'
-      }
       return (
-        <div key={'video-'+idx}>
-          <video autoPlay src={this.state.videoBlobs[idx]} style={videoStyle} className="VideoRecorder-delayed"/>
-          <video autoPlay src={url} style={popupStyle} className="VideoRecorder-live"/>
-        </div>
+        <VideoDelay
+          key={'video-'+idx}
+          setVideoDelays={this.props.setVideoDelays}
+          videoDelays={this.props.videoDelays}
+          videoBlob={this.state.videoBlobs[idx]}
+          url={url}
+          idx={idx}
+          cols={cols}
+          rows={rows}
+        />
       )
     })
     return (
