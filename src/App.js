@@ -3,6 +3,7 @@ import './App.css'
 import VideoRecorder from './VideoRecorder'
 import Devices from './Devices'
 import TextField from 'material-ui/TextField'
+import Toggle from 'material-ui/Toggle'
 
 class App extends Component {
   state = {
@@ -11,22 +12,28 @@ class App extends Component {
   , selectedDevices: []
   , videoDelays: []
   , delay: 8
+  , showLiveVideo: true
+  , useBackupRecorder: false
   }
   _setVideo = show=>{
     if (show === true && this.state.selectedDevices.length === 0) return
-    this.setState({...this.state, showVideoRecorder: show})
+    this.setState({showVideoRecorder: show})
   }
   _setDevices = devices=>{
-    this.setState({...this.state, devices})
+    this.setState({devices})
   }
   _setSelectedDevices = selectedDevices=>{
-    this.setState({...this.state, selectedDevices})
+    this.setState({selectedDevices})
   }
   _setDelay = (e, delay)=>{
-    this.setState({...this.state, delay})
+    this.setState({delay})
   }
   _setVideoDelays = videoDelays=>{
-    this.setState({...this.state, videoDelays})
+    this.setState({videoDelays})
+  }
+  _toggleState(key){
+    const val = this.state[key]
+    this.setState({[key]: !val})
   }
   render() {
     this.delayErrorText = !isNaN(this.state.delay) && this.state.delay > 0 ? null : 'This must be a number greater than 0'
@@ -54,7 +61,19 @@ class App extends Component {
             onChange={this._setDelay}
           />
         </div>
-        <div className="App-start-button" onClick={()=>this._setVideo(true)}>Start</div>
+        <div className="App-toggles">
+          <Toggle
+            label="Show Live Video"
+            toggled={this.state.showLiveVideo}
+            onToggle={()=>this._toggleState('showLiveVideo')}
+          />
+          <Toggle
+            label="Maintain full length recording"
+            toggled={this.state.useBackupRecorder}
+            onToggle={()=>this._toggleState('useBackupRecorder')}
+          />
+        </div>
+        <button className="App-start-button" onClick={()=>this._setVideo(true)}>Start</button>
         <VideoRecorder 
           visible={this.state.showVideoRecorder}
           delay={this.state.delay*1000}
@@ -63,6 +82,8 @@ class App extends Component {
           selectedDevices={this.state.selectedDevices}
           setVideoDelays={this._setVideoDelays}
           videoDelays={this.state.videoDelays}
+          showLiveVideo={this.state.showLiveVideo}
+          useBackupRecorder={this.state.useBackupRecorder}
         />
       </div>
     )

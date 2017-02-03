@@ -12,6 +12,8 @@ export default class VideoRecorder extends Component {
   , selectedDevices: React.PropTypes.array.isRequired
   , setVideoDelays: React.PropTypes.func.isRequired
   , videoDelays: React.PropTypes.array.isRequired
+  , showLiveVideo: React.PropTypes.bool
+  , useBackupRecorder: React.PropTypes.bool
   }
   constructor(props){
     super(props)
@@ -49,7 +51,9 @@ export default class VideoRecorder extends Component {
   _play(stream, index){
     this._recordings[index] = []
     // recordings use a lot of CPU...
-    //this._backupRecorders[index] = this._getMediaRecorder(stream, this._recordings[index])
+    if (this.props.useBackupRecorder) {
+      this._backupRecorders[index] = this._getMediaRecorder(stream, this._recordings[index])
+    }
     this._runRecursiveRecorder(stream, index)
   }
   _runRecursiveRecorder(stream, index){
@@ -66,13 +70,13 @@ export default class VideoRecorder extends Component {
       setTimeout(()=>{
         this._runRecursiveRecorder(stream, index)
       })
-    }, this.props.delay + this.props.videoDelays[index]*100)
+    }, this.props.videoDelays[index])
   }
   _stop(){
     this._primaryRecorders.map(r=>r.stop())
-    //this._backupRecorders.map(r=>r.stop())
+    this._backupRecorders.map(r=>r.stop())
     this._primaryRecorders = []
-    //this._backupRecorders = []
+    this._backupRecorders = []
     this._timeouts.map(t=>clearTimeout(t))
     this.state.videoStreams.forEach(s=>{
       s.getVideoTracks().forEach(v=>v.stop())
@@ -101,19 +105,18 @@ export default class VideoRecorder extends Component {
   }
   async _run(){
     const devices = this.props.devices
-    //const videoInput = devices.videoInputs.slice(-1)[0]
     const audioInput = devices.audioInputs.slice(-1)[0]
     const streams = await Promise.all(devices.videoInputs.filter((v,i)=>{
       return this.props.selectedDevices.includes(i)
     }).map(v=>{
       return this._getStream(v.deviceId, audioInput.deviceId)
     }))
-    streams.forEach((s, i)=>this._play(s, i))
+    this.props.setVideoDelays(Array(streams.length).fill(this.props.delay))
     this.setState({...this.state
     , videoStreams: streams
     , videoStreamUrls: streams.map(s=>window.URL.createObjectURL(s))
     })
-    this.props.setVideoDelays(Array(streams.length).fill(this.props.delay))
+    streams.forEach((s, i)=>this._play(s, i))
   }
   componentWillReceiveProps(newProps){
     if (!this.props.visible && newProps.visible){
@@ -135,7 +138,7 @@ export default class VideoRecorder extends Component {
           setVideoDelays={this.props.setVideoDelays}
           videoDelays={this.props.videoDelays}
           videoBlob={this.state.videoBlobs[idx]}
-          url={url}
+          url={this.props.showLiveVideo ? url : null}
           idx={idx}
           cols={cols}
           rows={rows}

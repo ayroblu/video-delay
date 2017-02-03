@@ -8,7 +8,7 @@ export default class VideoRecorder extends Component {
     setVideoDelays: React.PropTypes.func.isRequired
   , videoDelays: React.PropTypes.array.isRequired
   , videoBlob: React.PropTypes.string
-  , url: React.PropTypes.string.isRequired
+  , url: React.PropTypes.string
   , idx: React.PropTypes.number.isRequired
   , cols: React.PropTypes.number.isRequired
   , rows: React.PropTypes.number.isRequired
@@ -60,7 +60,7 @@ export default class VideoRecorder extends Component {
     return (
       <div>
         <video autoPlay src={this.props.videoBlob} style={videoStyle} className="VideoDelay-delayed"/>
-        {true &&
+        {this.props.url &&
         <video autoPlay src={this.props.url} style={popupStyle} className="VideoDelay-live"/>}
         <div
           className="VideoDelay-delay"

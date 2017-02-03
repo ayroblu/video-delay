@@ -1,4 +1,9 @@
 Video Delay App
 ===============
 
-Basically using the chrome web apis to capture video and delay it
+Basically using the chrome web apis (webrtc) to capture video from your webcam and delay it
+
+```
+App -> Devices
+    -> VideoRecorder -> VideoDelay
+```
