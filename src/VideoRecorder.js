@@ -12,6 +12,7 @@ export default class VideoRecorder extends Component {
   , selectedDevices: React.PropTypes.array.isRequired
   , setVideoDelays: React.PropTypes.func.isRequired
   , videoDelays: React.PropTypes.array.isRequired
+  , mimeType: React.PropTypes.string.isRequired
   , showLiveVideo: React.PropTypes.bool
   , useBackupRecorder: React.PropTypes.bool
   }
@@ -28,7 +29,7 @@ export default class VideoRecorder extends Component {
     this._timeouts = []
   }
   _getMediaRecorder(stream, chunksArr){
-    const options = {mimeType: 'video/webm;codecs=vp9'}
+    const options = {mimeType: this.props.mimeType}
     const mediaRecorder = new window.MediaRecorder(stream, options)
     mediaRecorder.ondataavailable = event=>{
       if (event.data.size > 0) {

@@ -4,6 +4,8 @@ import VideoRecorder from './VideoRecorder'
 import Devices from './Devices'
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
 class App extends Component {
   state = {
@@ -14,6 +16,7 @@ class App extends Component {
   , delay: 8
   , showLiveVideo: true
   , useBackupRecorder: false
+  , mimeType: 'video/webm;codecs=vp9'
   }
   _setVideo = show=>{
     if (show === true && this.state.selectedDevices.length === 0) return
@@ -72,6 +75,15 @@ class App extends Component {
             toggled={this.state.useBackupRecorder}
             onToggle={()=>this._toggleState('useBackupRecorder')}
           />
+          <SelectField
+            floatingLabelText="Video Codec"
+            value={this.state.mimeType}
+            onChange={(e, i, mimeType)=>this.setState({mimeType})}
+            style={{textAlign: 'left'}}
+          >
+            <MenuItem value='video/webm;codecs=h264' primaryText="h.264" />
+            <MenuItem value='video/webm;codecs=vp9' primaryText="VP9" />
+          </SelectField>
         </div>
         <button className="App-start-button" onClick={()=>this._setVideo(true)}>Start</button>
         <VideoRecorder 
@@ -84,6 +96,7 @@ class App extends Component {
           videoDelays={this.state.videoDelays}
           showLiveVideo={this.state.showLiveVideo}
           useBackupRecorder={this.state.useBackupRecorder}
+          mimeType={this.state.mimeType}
         />
       </div>
     )
