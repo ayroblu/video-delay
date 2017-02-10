@@ -12,6 +12,7 @@ export default class Devices extends Component {
   , setSelectedDevices: React.PropTypes.func.isRequired
   }
   componentWillMount(){
+    this.first = true
     this._getDevices().catch(err=>{
       console.error('Error getting devices', err)
     })
@@ -21,7 +22,24 @@ export default class Devices extends Component {
     const devices = await this._gotDevices(deviceInfos)
     this.props.setDevices(devices)
     this.props.setSelectedDevices(devices.videoInputs.map((d,i)=>i))
+    if (!devices.videoInputs.some(d=>d.label)){
+      this._requestPermissions()
+    }
     return devices
+  }
+  _requestPermissions(){
+    if (!this.first){
+      return
+    }
+    this.first = false
+    navigator.mediaDevices.getUserMedia({video: true})
+      .then(stream=>{
+        stream.getVideoTracks().forEach(v=>v.stop())
+        stream.getAudioTracks().forEach(a=>a.stop())
+        this._getDevices()
+      }).catch(err=>{
+        console.error('Error gum:', err)
+      })
   }
   _gotDevices(deviceInfos) {
     const audioInputs = deviceInfos.filter(d=>d.kind === 'audioinput').map(d=>Object.assign(d))
