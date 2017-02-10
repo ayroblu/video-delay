@@ -36,7 +36,7 @@ export default class VideoRecorder extends Component {
         chunksArr.push(event.data)
       }
     }
-    mediaRecorder.start()
+    mediaRecorder.start(10)
     return mediaRecorder
   }
   _getStream(videoSource, audioSource) {

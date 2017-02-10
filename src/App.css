@@ -44,6 +44,9 @@
 .App-start-button:focus{
   box-shadow: 0 0 10px #555;
 }
+.App-delay{
+  margin-bottom: 20px;
+}
 .App-toggles{
   max-width: 250px;
   margin: 0 auto;

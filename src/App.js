@@ -13,8 +13,8 @@ class App extends Component {
   , devices: {}
   , selectedDevices: []
   , videoDelays: []
-  , delay: 8
-  , showLiveVideo: true
+  , delay: 5
+  , showLiveVideo: false
   , useBackupRecorder: false
   , mimeType: 'video/webm;codecs=vp9'
   }
@@ -55,15 +55,14 @@ class App extends Component {
           setSelectedDevices={this._setSelectedDevices}
           selectedDevices={this.state.selectedDevices}
         />
-        <div>
-          <TextField
-            hintText="Delay for video"
-            errorText={this.delayErrorText}
-            floatingLabelText="Delay"
-            value={this.state.delay}
-            onChange={this._setDelay}
-          />
-        </div>
+        <TextField
+          hintText="Delay for video"
+          errorText={this.delayErrorText}
+          floatingLabelText="Delay"
+          value={this.state.delay}
+          onChange={this._setDelay}
+          className='App-delay'
+        />
         <div className="App-toggles">
           <Toggle
             label="Show Live Video"
