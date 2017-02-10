@@ -38,6 +38,16 @@ class App extends Component {
     const val = this.state[key]
     this.setState({[key]: !val})
   }
+  componentWillMount(){
+    if (window.localStorage.state) {
+      this.setState(JSON.parse(window.localStorage.state))
+    }
+  }
+  componentDidUpdate(){
+    const { delay, showLiveVideo, useBackupRecorder, mimeType } = this.state
+    const state = {delay, showLiveVideo, useBackupRecorder, mimeType}
+    window.localStorage.setItem('state', JSON.stringify(state))
+  }
   render() {
     this.delayErrorText = !isNaN(this.state.delay) && this.state.delay > 0 ? null : 'This must be a number greater than 0'
     return (

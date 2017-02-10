@@ -1,9 +1,37 @@
 .Devices-container{
   margin-top: 20px;
 }
+.Devices-refresh{
+  border: none;
+  padding: 1rem;
+  border-radius: 50%;
+  background: #e70;
+  font-size: 1rem;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  box-shadow: 0 0 10px #555;
+  cursor: pointer;
+}
+.Devices-refresh:hover{
+  background: #f80;
+}
+.Devices-refresh:active{
+  background: #d60;
+}
+.Devices-refresh svg{
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .Devices{
   box-shadow: 0 0 10px #555;
   display: inline-block;
+  position: relative;
 }
 .Devices-heading{
   padding: 5px;

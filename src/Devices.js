@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Devices.css'
 import FaTimes from 'react-icons/lib/fa/close'
 import FaCheck from 'react-icons/lib/fa/check'
+import FaRefresh from 'react-icons/lib/fa/refresh'
 
 export default class Devices extends Component {
   static propTypes = {
@@ -43,6 +44,11 @@ export default class Devices extends Component {
     }
     this.props.setSelectedDevices(selectedDevices)
   }
+  _refresh = ()=>{
+    this._getDevices().catch(err=>{
+      console.error('Error getting devices', err)
+    })
+  }
   render(){
     const {videoInputs} = this.props.devices
     if (!videoInputs){
@@ -66,12 +72,15 @@ export default class Devices extends Component {
     })
     return (
       <div className='Devices-container'>
-        <div className='Devices'>
+        <section className='Devices'>
+          <button className='Devices-refresh' onClick={this._refresh}>
+            <FaRefresh />
+          </button>
           <h3 className='Devices-heading'>Video Cameras</h3>
           <ul>
             {videos}
           </ul>
-        </div>
+        </section>
       </div>
     )
   }
