@@ -62,12 +62,12 @@ export default class VideoRecorder extends Component {
     this._primaryRecorders[index] = this._getMediaRecorder(stream, recordedChunks)
 
     this._timeouts[index] = setTimeout(()=>{
+      this._primaryRecorders[index].stop()
       const superBuffer = new Blob(recordedChunks)
       const url = window.URL.createObjectURL(superBuffer)
       const videoBlobs = this.state.videoBlobs.concat()
       videoBlobs[index] = url
       this.setState({...this.state, videoBlobs})
-      this._primaryRecorders[index].stop()
       setTimeout(()=>{
         this._runRecursiveRecorder(stream, index)
       })
