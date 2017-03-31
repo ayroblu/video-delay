@@ -5,11 +5,16 @@
   bottom:0;
   left:0;
   right:0;
+  backface-visibility: hidden;
+  z-index: 1;
+  object-fit: cover;
 }
 .VideoDelay-live{
   background-color: black;
   position: fixed;
   width: 200px;
+  z-index: 1;
+  backface-visibility: hidden;
 }
 .VideoDelay-delay{
   color: white;
@@ -18,6 +23,8 @@
   transform: translateX(-50%);
   position: fixed;
   -user-select: none;
+  z-index: 1;
+  backface-visibility: hidden;
 }
 .VideoDelay-delay-button{
   position: fixed;
@@ -25,6 +32,8 @@
   cursor: pointer;
   font-size: 3em;
   transform: translate(-50%, -50%);
+  z-index: 1;
+  backface-visibility: hidden;
 }
 .VideoDelay-delay-button:hover{
   color: #8bf;
