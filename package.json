@@ -2,7 +2,7 @@
   "name": "video-delay",
   "version": "0.1.0",
   "private": true,
-  "hostname": "./",
+  "homepage": "./",
   "main": "./electron-starter.js",
   "devDependencies": {
     "react-scripts": "0.8.5",
