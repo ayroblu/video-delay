@@ -16,7 +16,7 @@ function createWindow () {
   const options = {
     width: 1000
   , height: 800
-  , icon: path.join(__dirname, 'favicon', 'android-chrome-512x512.png'),
+  , icon: path.join(__dirname, 'public', 'favicon', 'android-chrome-512x512.png'),
   }
 
   mainWindow = new BrowserWindow(options)
