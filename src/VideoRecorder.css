@@ -7,5 +7,6 @@
   color: white;
   cursor: pointer;
   font-size: 2em;
+  z-index: 2;
   backface-visibility: hidden;
 }

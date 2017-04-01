@@ -7,6 +7,7 @@
   right:0;
   backface-visibility: hidden;
   z-index: 1;
+  overflow:hidden;
   object-fit: cover;
 }
 .VideoDelay-live{
