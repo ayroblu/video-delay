@@ -2,6 +2,7 @@
   "name": "video-delay",
   "version": "0.1.0",
   "private": true,
+  "hostname": "./",
   "devDependencies": {
     "react-scripts": "0.8.5"
   },
@@ -16,6 +17,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:electron": "electron .",
+    "clean": "rm -rf ./dist",
+    "clean:osx": "rm -rf ./dist/osx",
+    "clean:win": "rm -rf ./dist/win",
+    "pack": "npm run clean && npm run pack:osx && npm run pack:win",
+    "pack:osx": "npm run clean:osx && electron-packager . \"Video Delay App\" --out=dist/osx --platform=darwin --arch=x64 --icon=favicon/android-chrome-512x512.png.icns --ignore=dist --ignore=assets --ignore=builder.json --ignore=bower.json --ignore=README.md --ignore=.gitignore --ignore=preview.png",
+    "pack:win": "npm run clean:win && electron-packager . \"Video Delay App\" --out=dist/win --platform=win32 --arch=ia32 --icon=favicon/android-chrome-512x512.png --ignore=dist --ignore=assets --ignore=builder.json --ignore=bower.json --ignore=README.md --ignore=.gitignore --ignore=preview.png"
   }
 }
