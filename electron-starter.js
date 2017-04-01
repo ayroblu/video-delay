@@ -22,7 +22,7 @@ function createWindow () {
   mainWindow = new BrowserWindow(options)
 
   // and load the index.html of the app.
-  mainWindow.loadURL(url.format({
+  mainWindow.loadURL(process.env.ELECTRON_START_URL || url.format({
     pathname: path.join(__dirname, 'build', 'index.html'),
     protocol: 'file:',
     slashes: true
