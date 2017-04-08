@@ -7,7 +7,6 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 const {Menu, MenuItem} = require('electron')
-const menu = new Menu()
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -31,13 +30,51 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  
-  menu.append(new MenuItem({
-    label: 'DevTools',
-    accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-    click: ()=>mainWindow.webContents.openDevTools()
-  }))
-
+  var applicationMenu = [{
+    label: 'Developers',
+    submenu: [{
+      label: 'DevTools',
+      accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+      click: ()=>mainWindow.webContents.openDevTools()
+    }]
+  }]
+  if (process.platform == 'darwin') {
+    const name = app.getName()
+    applicationMenu.unshift({
+      label: name,
+      submenu: [{
+        label: 'About ' + name,
+        role: 'about'
+      }, {
+        type: 'separator'
+      }, {
+        label: 'Services',
+        role: 'services',
+        submenu: []
+      }, {
+        type: 'separator'
+      }, {
+        label: 'Hide ' + name,
+        accelerator: 'Command+H',
+        role: 'hide'
+      }, {
+        label: 'Hide Others',
+        accelerator: 'Command+Shift+H',
+        role: 'hideothers'
+      }, {
+        label: 'Show All',
+        role: 'unhide'
+      }, {
+        type: 'separator'
+      }, {
+        label: 'Quit',
+        accelerator: 'Command+Q',
+        click: () => { app.quit(); }
+      }]
+    })
+  }
+  const menu = Menu.buildFromTemplate(applicationMenu);
+  Menu.setApplicationMenu(menu);
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
