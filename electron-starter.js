@@ -33,9 +33,10 @@ function createWindow () {
   var applicationMenu = [{
     label: 'Developers',
     submenu: [{
-      label: 'DevTools',
-      accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
-      click: ()=>mainWindow.webContents.openDevTools()
+      role: 'toggledevtools',
+      //label: 'DevTools',
+      //accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Ctrl+Shift+I',
+      //click: ()=>mainWindow.webContents.openDevTools()
     }]
   }]
   if (process.platform == 'darwin') {

@@ -32,3 +32,10 @@ On macOS the label of the application menu’s first item is always your app’s
 Notes
 -----
 We currently are just recording videos and replaying them based on the interval. This isn't the best way, but I was trying MediaStream and other Chrome APIs and they just aren't that reliable?
+
+TODO
+----
+* Download video
+* Pause, rewind
+* Fade
+* Add service worker
