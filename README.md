@@ -37,5 +37,5 @@ TODO
 ----
 * Download video
 * Pause, rewind
-* Fade
+* Fade - sorta done
 * Add service worker

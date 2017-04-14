@@ -95,7 +95,7 @@ class App extends Component {
           </SelectField>
         </div>
         <button className="App-start-button" onClick={()=>this._setVideo(true)}>Start</button>
-        <VideoRecorder 
+        <VideoRecorder
           visible={this.state.showVideoRecorder}
           delay={this.state.delay*1000}
           setVideo={this._setVideo}

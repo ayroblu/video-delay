@@ -40,8 +40,12 @@
   transform: translate(-50%, -50%);
   z-index: 1;
   backface-visibility: hidden;
+  opacity: 0.3;
+  transition: opacity 0.5s 3s;
 }
 .VideoDelay-delay-button:hover{
   color: #8bf;
+  opacity: 1;
+  transition: opacity 0.5s;
 }
 
