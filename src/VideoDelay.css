@@ -37,7 +37,7 @@
   color: white;
   cursor: pointer;
   font-size: 3em;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   z-index: 1;
   backface-visibility: hidden;
   opacity: 0.3;

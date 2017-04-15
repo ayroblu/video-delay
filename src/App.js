@@ -43,6 +43,15 @@ class App extends Component {
       this.setState(JSON.parse(window.localStorage.state))
     }
   }
+  _updateOnResize = ()=>{
+    this.forceUpdate()
+  }
+  componentDidMount(){
+    window.addEventListener('resize', this._updateOnResize)
+  }
+  componentWillUnmount(){
+    window.removeEventListener('resize', this._updateOnResize)
+  }
   componentDidUpdate(){
     const { delay, showLiveVideo, useBackupRecorder, mimeType } = this.state
     const state = {delay, showLiveVideo, useBackupRecorder, mimeType}

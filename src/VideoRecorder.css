@@ -1,7 +1,15 @@
 .VideoRecorder{
+  background-color:rgba(0,0,0,0.8);
+  position: fixed;
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .VideoRecorder-close{
   position: fixed;
+  backface-visibility: hidden;
   top: 10px;
   right: 10px;
   color: white;
