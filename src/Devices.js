@@ -13,18 +13,23 @@ export default class Devices extends Component {
   }
   componentWillMount(){
     this.first = true
+    this.setState({})
     this._getDevices().catch(err=>{
       console.error('Error getting devices', err)
     })
   }
   async _getDevices(){
+    this.setState({loading: true})
+
     const deviceInfos = await navigator.mediaDevices.enumerateDevices()
     const devices = await this._gotDevices(deviceInfos)
     this.props.setDevices(devices)
     this.props.setSelectedDevices(devices.videoInputs.map((d,i)=>i))
     if (!devices.videoInputs.some(d=>d.label)){
-      this._requestPermissions()
+      await this._requestPermissions()
     }
+
+    this.setState({loading: false})
     return devices
   }
   _requestPermissions(){
@@ -32,7 +37,7 @@ export default class Devices extends Component {
       return
     }
     this.first = false
-    navigator.mediaDevices.getUserMedia({video: true})
+    return navigator.mediaDevices.getUserMedia({video: true})
       .then(stream=>{
         stream.getVideoTracks().forEach(v=>v.stop())
         stream.getAudioTracks().forEach(a=>a.stop())
@@ -67,11 +72,14 @@ export default class Devices extends Component {
       console.error('Error getting devices', err)
     })
   }
-  render(){
+  _renderVideosList(){
+    if (this.state.loading){
+      return <li>Loading...</li>
+    }
     const {videoInputs} = this.props.devices
-    if (!videoInputs){
+    if (!videoInputs || videoInputs.length < 1){
       return (
-        <div>No video inputs</div>
+        <li>No video inputs</li>
       )
     }
     const videos = videoInputs.map((v,i)=>{
@@ -88,6 +96,10 @@ export default class Devices extends Component {
         </li>
       )
     })
+    return videos
+  }
+  render(){
+    const videos = this._renderVideosList()
     return (
       <div className='Devices-container'>
         <section className='Devices'>

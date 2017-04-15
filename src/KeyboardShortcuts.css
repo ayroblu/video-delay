@@ -1,0 +1,24 @@
+.KeyboardShortcuts{
+  position: fixed;
+  backface-visibility: hidden;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.2);
+}
+.KeyboardShortcuts.hidden{
+  opacity: 0;
+  pointer-events: none;
+}
+.KeyboardShortcuts .Panel{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fafaee;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+
+  padding: 10px;
+}

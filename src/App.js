@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import './App.css'
-import VideoRecorder from './VideoRecorder'
-import Devices from './Devices'
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+
+import './App.css'
+import VideoRecorder from './VideoRecorder'
+import Devices from './Devices'
+import KeyboardShortcuts from './KeyboardShortcuts'
 
 class App extends Component {
   state = {
@@ -116,6 +118,7 @@ class App extends Component {
           useBackupRecorder={this.state.useBackupRecorder}
           mimeType={this.state.mimeType}
         />
+        <KeyboardShortcuts state={this.state} setState={params=>this.setState(params)} />
       </div>
     )
   }
