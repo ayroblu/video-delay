@@ -47,6 +47,15 @@ export default class VideoRecorder extends Component {
 
     const {videoStyle, popupStyle, leftStyle, rightStyle, delayStyle} = this._getStyles()
 
+    if (this.props.showLiveVideoActive && this.props.url){
+      // classname is sorta misleading?
+      return (
+        <div style={videoStyle} className="VideoDelay-delayed">
+          <video autoPlay src={this.props.url} className="VideoDelay-delayed-video"/>
+        </div>
+      )
+    }
+
     const setVideoDelaysInc = ()=>{
       const videoDelays = this.props.videoDelays.concat()
       videoDelays[idx] += 100

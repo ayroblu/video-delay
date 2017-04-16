@@ -12,7 +12,7 @@
   opacity: 0;
   pointer-events: none;
 }
-.KeyboardShortcuts .Panel{
+.KeyboardShortcuts > .Panel{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -20,5 +20,12 @@
   background-color: #fafaee;
   box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
 
+  text-align: left;
   padding: 10px;
+}
+.KeyboardShortcuts > .Panel table td{
+  padding: 2px 4px;
+}
+.KeyboardShortcuts > .Panel table tr > td:first-child{
+  text-align: right;
 }

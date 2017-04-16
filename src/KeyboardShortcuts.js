@@ -22,6 +22,30 @@ class KeyboardShortcuts extends Component {
   _bindShortcuts(){
     this.props.bindShortcut('?', this._toggleShortcutsPanel)
     this.props.bindShortcut('enter', this._toggleShowVideo)
+    this.props.bindShortcut('l', this._toggleLive)
+    this.props.bindShortcut('b', this._toggleBackup)
+    this.props.bindShortcut('d', this._downloadFull)
+    this.props.bindShortcut(['command+enter', 'ctrl+enter'], ()=>location.reload())
+  }
+  _downloadFull = ()=>{
+    const {videoRecorder, useBackupRecorder} = this.props.state
+    if (useBackupRecorder && videoRecorder){
+      videoRecorder.download()
+    }
+  }
+  _toggleLive = ()=>{
+    const {showLiveVideo, showLiveVideoActive, showVideoRecorder} = this.props.state
+    if (!showVideoRecorder){
+      this.props.setState({showLiveVideo: !showLiveVideo})
+    } else {
+      this.props.setState({showLiveVideoActive: !showLiveVideoActive})
+    }
+  }
+  _toggleBackup = ()=>{
+    const {useBackupRecorder, showVideoRecorder} = this.props.state
+    if (!showVideoRecorder){
+      this.props.setState({useBackupRecorder: !useBackupRecorder})
+    }
   }
   _toggleShortcutsPanel = ()=>{
     this.setState({visible: !this.state.visible})
@@ -36,7 +60,16 @@ class KeyboardShortcuts extends Component {
       <article className={cn("KeyboardShortcuts", !this.state.visible && 'hidden')}>
         <section className='Panel'>
           <h2>Keyboard Shortcuts</h2>
-          <p>?: Show keyboard shortcuts</p>
+          <table>
+            <tbody>
+              <tr><td>?</td><td>Show keyboard shortcuts</td></tr>
+              <tr><td>enter</td><td>Toggle video</td></tr>
+              <tr><td>l</td><td>Toggle live recording</td></tr>
+              <tr><td>b</td><td>Toggle backup recorder</td></tr>
+              <tr><td>d</td><td>Download full length video</td></tr>
+              <tr><td>ctrl+enter</td><td>Reload Page</td></tr>
+            </tbody>
+          </table>
         </section>
       </article>
     )

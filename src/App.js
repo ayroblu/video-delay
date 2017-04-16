@@ -17,6 +17,7 @@ class App extends Component {
   , videoDelays: []
   , delay: 5
   , showLiveVideo: false
+  , showLiveVideoActive: false
   , useBackupRecorder: false
   , mimeType: 'video/webm;codecs=vp9'
   }
@@ -107,6 +108,7 @@ class App extends Component {
         </div>
         <button className="App-start-button" onClick={()=>this._setVideo(true)}>Start</button>
         <VideoRecorder
+          ref={r=>!this.state.videoRecorder && this.setState({videoRecorder: r})}
           visible={this.state.showVideoRecorder}
           delay={this.state.delay*1000}
           setVideo={this._setVideo}
@@ -115,6 +117,7 @@ class App extends Component {
           setVideoDelays={this._setVideoDelays}
           videoDelays={this.state.videoDelays}
           showLiveVideo={this.state.showLiveVideo}
+          showLiveVideoActive={this.state.showLiveVideoActive}
           useBackupRecorder={this.state.useBackupRecorder}
           mimeType={this.state.mimeType}
         />

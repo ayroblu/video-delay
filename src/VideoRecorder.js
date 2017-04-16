@@ -14,6 +14,7 @@ export default class VideoRecorder extends Component {
   , videoDelays: React.PropTypes.array.isRequired
   , mimeType: React.PropTypes.string.isRequired
   , showLiveVideo: React.PropTypes.bool
+  , showLiveVideoActive: React.PropTypes.bool
   , useBackupRecorder: React.PropTypes.bool
   }
   constructor(props){
@@ -86,6 +87,7 @@ export default class VideoRecorder extends Component {
     this.setState({videoStreams:[], videoStreamUrls:[], videoBlobs: []})
   }
   download(){
+    if (!this._recordings || !this._recordings.length) return
     this._recordings.forEach((r, idx)=>{
       const d = new Date()
       const n = d.toISOString().slice(0,19)
@@ -140,6 +142,7 @@ export default class VideoRecorder extends Component {
           videoDelays={this.props.videoDelays}
           videoBlob={this.state.videoBlobs[idx]}
           url={this.props.showLiveVideo ? url : null}
+          showLiveVideoActive={this.props.showLiveVideoActive}
           idx={idx}
           cols={cols}
           rows={rows}
