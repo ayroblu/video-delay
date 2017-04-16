@@ -15,6 +15,7 @@ class App extends Component {
   , devices: {}
   , selectedDevices: []
   , videoDelays: []
+  , videoPaused: false
   , delay: 5
   , showLiveVideo: false
   , showLiveVideoActive: false
@@ -116,6 +117,7 @@ class App extends Component {
           selectedDevices={this.state.selectedDevices}
           setVideoDelays={this._setVideoDelays}
           videoDelays={this.state.videoDelays}
+          videoPaused={this.state.videoPaused}
           showLiveVideo={this.state.showLiveVideo}
           showLiveVideoActive={this.state.showLiveVideoActive}
           useBackupRecorder={this.state.useBackupRecorder}

@@ -28,4 +28,8 @@
 }
 .KeyboardShortcuts > .Panel table tr > td:first-child{
   text-align: right;
+  color: black;
+}
+.KeyboardShortcuts > .Panel table tr > td{
+  color: #888;
 }

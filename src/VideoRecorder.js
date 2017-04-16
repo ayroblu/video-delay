@@ -11,6 +11,7 @@ export default class VideoRecorder extends Component {
   , devices: React.PropTypes.object.isRequired
   , selectedDevices: React.PropTypes.array.isRequired
   , setVideoDelays: React.PropTypes.func.isRequired
+  , videoPaused: React.PropTypes.bool.isRequired
   , videoDelays: React.PropTypes.array.isRequired
   , mimeType: React.PropTypes.string.isRequired
   , showLiveVideo: React.PropTypes.bool
@@ -28,6 +29,7 @@ export default class VideoRecorder extends Component {
     this._backupRecorders = []
     this._recordings = []
     this._timeouts = []
+    this.videoRecorders = []
   }
   _getMediaRecorder(stream, chunksArr){
     const options = {mimeType: this.props.mimeType}
@@ -129,18 +131,35 @@ export default class VideoRecorder extends Component {
       this._stop()
     }
   }
+  getVideos(){
+    return this.videoRecorders.map(v=>v.mainVideo)
+  }
   render() {
     const divStyle = this.props.visible ? {display: 'block'} : {display: 'none'}
     const numVideos = this.state.videoStreams.length
     const cols = Math.ceil(Math.sqrt(numVideos))
     const rows = Math.ceil(numVideos/cols)
+
+    if (this.props.videoPaused){
+      console.log('video paused')
+      if (!this._pausedVideoBlobs){
+        this._pausedVideoBlobs = this.state.videoBlobs
+      }
+    } else {
+      console.log('video not paused')
+      if (this._pausedVideoBlobs){
+        this._pausedVideoBlobs = null
+      }
+    }
+    const videoBlobs = this._pausedVideoBlobs || this.state.videoBlobs
     const videos = this.state.videoStreamUrls.map((url, idx)=>{
       return (
         <VideoDelay
+          ref={r=>this.videoRecorders[idx]=r}
           key={'video-'+idx}
           setVideoDelays={this.props.setVideoDelays}
           videoDelays={this.props.videoDelays}
-          videoBlob={this.state.videoBlobs[idx]}
+          videoBlob={videoBlobs[idx]}
           url={this.props.showLiveVideo ? url : null}
           showLiveVideoActive={this.props.showLiveVideoActive}
           idx={idx}

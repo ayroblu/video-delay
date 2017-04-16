@@ -68,7 +68,7 @@ export default class VideoRecorder extends Component {
     }
     return (
       <div style={videoStyle} className="VideoDelay-delayed">
-        <video autoPlay src={this.props.videoBlob} className="VideoDelay-delayed-video"/>
+        <video ref={r=>this.mainVideo = r} autoPlay src={this.props.videoBlob} className="VideoDelay-delayed-video"/>
         {this.props.url &&
         <video autoPlay src={this.props.url} style={popupStyle} className="VideoDelay-live"/>}
         <div
